@@ -1,50 +1,13 @@
-# Getting Started
-
-## Windows
-
-### Compile Code
-* ./mvnw.cmd clean compile -e
-
-### Test Code
-* ./mvnw.cmd clean test -e
-
-### Jar Code
-* ./mvnw.cmd clean package -e
-
-### Run Jar
-* Local:      ./mvnw.cmd spring-boot:run 
-* Background: nohup bash mvnw.cmd spring-boot:run &
-
-### Testing Application
-* Abrir navegador: http://localhost:8081/rest/mscovid/test?msg=testing
-
-## Linux
-
-### Compile Code
-* ./mvnw clean compile -e
-
-### Test Code
-* ./mvnw clean test -e
-
-### Jar Code
-* ./mvnw clean package -e
-
-### Run Jar
-* Local:      ./mvnw spring-boot:run 
-* Background: nohup bash mvnw spring-boot:run &
-
-### Testing Application
-* curl -X GET 'http://localhost:8081/rest/mscovid/test?msg=testing'
 #### Using Docker to test this app.
+
 ```bash
-### Compile Code
-docker run -it --rm -v $(pwd):/code --workdir /code maven mvn clean compile -e
+### Compile Test Jar Code
+docker run --rm -it -p 9010:8081 -u gradle -v $(pwd):/home/gradle/project -w /home/gradle/project gradle gradle clean build
 
-### Test Code
-docker run -it --rm -v $(pwd):/code --workdir /code maven mvn clean test -e
-
-### Jar Code
-docker run -it --rm -v $(pwd):/code --workdir /code maven mvn clean package -e
 
 ### Run Jar
-docker run -it --rm -p 8082:8081  -v $(pwd):/code --workdir /code maven ./mvnw spring-boot:run
+docker run --rm -it -p 9010:8081 -u gradle -v $(pwd):/home/gradle/project -w /home/gradle/project gradle gradle bootRun
+
+
+
+* curl -X GET 'http://localhost:9010/rest/mscovid/test?msg=testing'
