@@ -46,7 +46,7 @@ pipeline {
             steps {
                 withSonarQubeEnv('SonarQubeServer') {
                     sh "echo 'SonarQube'"
-                    sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=githubfull'
+                    sh 'mvn clean verify sonar:sonar -Dsonar.projectKey=ejemplo-gradle'
                 }
             }
             post {
