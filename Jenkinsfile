@@ -45,8 +45,9 @@ pipeline {
             //- ms-iclab-feature-estadomundial(Si está usando el CRUD ms-iclab-feature-[nombre de su crud])
             steps {
                 withSonarQubeEnv('SonarQubeServer') {
-                    sh "echo 'SonarQube'"
-                    sh 'gradle clean verify sonar:sonar -Dsonar.projectKey=ejemplo-gradle'
+                    sh "echo 'Calling sonar by ID!'"
+                    // Run Maven on a Unix agent to execute Sonar.
+                    sh 'sonarqube -Dsonar.projectKey=ejemplo-gradle -Dsonar.java.binaries=build'
                 }
             }
             post {
