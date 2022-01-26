@@ -15,14 +15,14 @@ pipeline {
         }
         
 
-        stage("03: Validate Maven Files"){
+        stage("03: Validate Gradle Files"){
             when {
                 anyOf {
                           not { expression { fileExists ('build.gradle') }}
                 }
             }
             steps {
-                sh "echo  'Faltan archivos Maven en su estructura'"
+                sh "echo  'Faltan archivos Gradle en su estructura'"
                 script{
                     error("file dont exist :( ")
                 }   
@@ -34,28 +34,7 @@ pipeline {
             steps {
                 script {
                 sh "echo 'Compile Code!'"
-                // Run Maven on a Unix agent.
-                //sh "mvn clean compile -e"
-                }
-            }
-        }
-        stage("2: Unit Test"){
-        //- Testear el código con comando maven
-            steps {
-                script {
-                sh "echo 'Test Code!'"
-                // Run Maven on a Unix agent.
-                //sh "mvn clean test -e"
-                }
-            }
-        }
-        stage("3: Build jar"){
-        //- Generar artefacto del código compilado.
-            steps {
-                script {
-                sh "echo 'Build .Jar!'"
-                // Run Maven on a Unix agent.
-                sh "mvn clean package -e"
+                sh "gradle clean build"
                 }
             }
         }
@@ -79,7 +58,7 @@ pipeline {
                     packages: [[$class: 'MavenPackage', 
                         mavenAssetList: [[classifier: '', 
                                         extension: '',
-                                        filePath: 'build/DevOpsUsach2020-0.0.1.jar']],
+                                        filePath: 'build/libs/DevOpsUsach2020-0.0.1.jar']],
                         mavenCoordinate: [artifactId: 'DevOpsUsach2020', 
                                         groupId: 'com.devopsusach2020', 
                                         packaging: 'jar', 
