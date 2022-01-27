@@ -7,12 +7,12 @@ def call(){
     stage("Paso 1: Build && Test"){
         sh "gradle clean build"
     }
-    stage("Paso 2: Sonar - Análisis Estático"){
-        sh "echo 'Análisis Estático!'"
-        withSonarQubeEnv('sonarqube3') {
-            sh './gradlew sonarqube -Dsonar.projectKey=ejemplo-gradle -Dsonar.java.binaries=build'
-        }
-    }
+    // stage("Paso 2: Sonar - Análisis Estático"){
+    //     sh "echo 'Análisis Estático!'"
+    //     withSonarQubeEnv('sonarqube3') {
+    //         sh './gradlew sonarqube -Dsonar.projectKey=ejemplo-gradle -Dsonar.java.binaries=build'
+    //     }
+    // }
     stage("Paso 3: Curl Springboot Gradle sleep 20"){
         sh "gradle bootRun&"
         sh "sleep 20 && curl -X GET 'http://localhost:8081/rest/mscovid/test?msg=testing'"
